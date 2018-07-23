@@ -12,20 +12,22 @@
     <h4>Redux</h4>
   </div>
   <div>
-    <p>El número es: </p>
+    <p>El número es: 
+      <span id="number" style="font-weight: bold"> </span> 
+    </p>
     <button onclick="increase()">Increase</button>
     <button onclick="decrease()">Decrease</button>
   </div>
 
   <script type="text/javascript">
-    console.log("corriendo dese JS");
+    //console.log("corriendo dese JS");
 
     // I. STATE
     /**
     *Objeto de JavaScript
     **/
     let state = {
-      numero: 0
+      number: 0
     }
 
     // II. STORE (reducer, state)
@@ -36,17 +38,17 @@
     *Función que genera el return de un estado
     **/
     function reducer(state, action){
-      console.log('reducer run');
+      //console.log('reducer run');
       let newState = Object.assign({}, state);
       switch (action.type) {
         case 'INC':
-          newState.numero = state.numero + 1;
-          console.log(newState);
+          newState.number = state.number + 1;
+          //console.log(newState);
           return newState;
 
         case 'DEC':
-          newState.numero = state.numero - 1;
-          console.log(newState);
+          newState.number = state.number - 1;
+          //console.log(newState);
           return newState;
       
         default:
@@ -59,6 +61,7 @@
     *Objeto de JavaScript que requiere de 
     *un 'key' con valor 'type'
     *key = llave / type = cualquier tipo
+    *Generalmente conjúnto de llaves y valores
     **/
     let actionIncrease = {
       type: 'INC'
@@ -81,6 +84,19 @@
     var decrease = function(){
       store.dispatch(actionDecrease);
     }
+
+    // VI. getState
+    var updateNumber = function () {
+      var numberDom = document.getElementById('number');
+      numberDom.innerHTML = store.getState().number;
+    }
+
+    updateNumber();
+
+    // VII. SUSCRIBE
+    store.subscribe(updateNumber);
+
+
   </script>
 
 </body>
